@@ -1,8 +1,6 @@
-import 'package:first_project/home_page.dart';
+import 'package:first_project/myhomescreen.dart';
 import 'package:first_project/sample.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
