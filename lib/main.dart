@@ -1,4 +1,4 @@
-import 'package:first_project/myhomescreen.dart';
+import 'package:first_project/grid_view_widget.dart';
 import 'package:first_project/sample.dart';
 import 'package:flutter/material.dart';
 
@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MyHomeScreen(
+                              builder: (context) => GridViewWidget(
                                     userName: userNameController.text,
                                   )),
                         );
