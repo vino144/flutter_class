@@ -70,19 +70,9 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              alignment: Alignment.center,
-              child: Text("Hi ${widget.userName}"),
+            const SizedBox(
+              height: 20,
             ),
-            Container(
-                alignment: Alignment.topRight,
-                child: MaterialButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    color: Colors.green,
-                    child: const Text("Click to CLose"))),
-            //const Image(image: AssetImage("assets/image/imageone.jpg")),
             ListView.separated(
                 physics: const AlwaysScrollableScrollPhysics(),
                 shrinkWrap: true,

@@ -1,4 +1,4 @@
-import 'package:first_project/nameModel.dart';
+import 'package:first_project/model/namemodel.dart';
 import 'package:flutter/material.dart';
 
 class DetailsView extends StatefulWidget {
