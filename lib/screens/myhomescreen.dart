@@ -1,3 +1,5 @@
+import 'package:first_project/apicall/api_service.dart';
+import 'package:first_project/model/user_model.dart';
 import 'package:first_project/nav_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +23,20 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     "Marsh",
     "New York"
   ];
+
+  late List<UserModel>? _userModel = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
+  void _getData() async {
+    _userModel = (await ApiService().getUsers())!;
+    print(_userModel!.first.name);
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +98,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                           border: Border.all(color: Colors.blueAccent)),
                       child: Center(
                         child: Text(
-                          stringList[index],
+                          _userModel![index].name,
                           style: const TextStyle(
                               fontSize: 20,
                               color: Colors.black,
@@ -96,7 +112,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                     height: 10,
                   );
                 },
-                itemCount: stringList.length),
+                itemCount: _userModel!.length),
           ],
         ),
       ),
