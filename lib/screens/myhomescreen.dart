@@ -29,7 +29,20 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   void initState() {
     super.initState();
+    print("INITSTATE");
     _getData();
+  }
+
+  @override
+  void didChangeDependencies() {
+    print("DIDCHANGEDEPENDENCIES");
+    super.didChangeDependencies();
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    print("SETSTATE");
+    super.setState(fn);
   }
 
   void _getData() async {
@@ -40,10 +53,11 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("BUILD");
     return Scaffold(
       drawer: const NavDrawer(),
       appBar: AppBar(
-        title: const Text("Home Screen"),
+        title: const Text("Home Screen View"),
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
@@ -89,6 +103,15 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             const SizedBox(
               height: 20,
             ),
+            MaterialButton(
+              child: const Text("Button"),
+              color: Colors.blueAccent,
+              onPressed: () {
+                setState() {
+                  print("SETTINGS");
+                }
+              },
+            ),
             ListView.separated(
                 physics: const AlwaysScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -117,5 +140,29 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void didUpdateWidget(covariant MyHomeScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print("DIDUPDATEWIDGET");
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    print("DEACTIVATE");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print("DISPOSE");
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    print("REASSEMBLE");
   }
 }
