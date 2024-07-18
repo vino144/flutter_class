@@ -47,14 +47,14 @@ class _LifecycleDemoState extends State<LifecycleDemo> {
     print('build');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lifecycle Methods Demo'),
+        title: const Text('Lifecycle Methods Demo'),
       ),
       body: Center(
         child: ElevatedButton(
           onPressed: () {
             setState(() {});
           },
-          child: Text('Press me to trigger setState'),
+          child: const Text('Press me to trigger setState'),
         ),
       ),
     );

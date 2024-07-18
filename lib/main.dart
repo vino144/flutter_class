@@ -3,12 +3,14 @@ import 'package:first_project/screens/myhomescreen.dart';
 import 'package:first_project/screens/profile_screen.dart';
 import 'package:first_project/screens/settings_screen.dart';
 import 'package:first_project/screens/splash_screen.dart';
+import 'package:first_project/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  initServiceLocator();
   runApp(const MyApp());
 }
 
