@@ -89,6 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     BlocProvider.of<LoginBloc>(context).add(LoginPressed(
                         userNameController.text, passwordController.text));
 
+                    print('LOGIN SUCCESS');
+
                     // if (userNameController.text.isNotEmpty) {
                     //   if (passwordController.text.isNotEmpty) {
                     //     if (userNameController.text == "vinoth" &&

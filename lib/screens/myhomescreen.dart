@@ -104,13 +104,13 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               height: 20,
             ),
             MaterialButton(
-              child: const Text("Button"),
               color: Colors.blueAccent,
               onPressed: () {
                 setState() {
                   print("SETTINGS");
                 }
               },
+              child: const Text("Button"),
             ),
             ListView.separated(
                 physics: const AlwaysScrollableScrollPhysics(),
