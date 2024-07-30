@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:first_project/screens/bloc/login_bloc.dart';
 import 'package:first_project/screens/myhomescreen.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   bool _validate = false;
 
   @override
@@ -127,6 +131,41 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  controller: phoneController,
+                  decoration: InputDecoration(
+                    labelText: "Phone Number",
+                    hintText: "Enter your Phone Number",
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.greenAccent, width: 2.0),
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                    ),
+                    errorText: _validate ? "Value Can't Be Empty" : null,
+                  ),
+                  obscureText: false,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    print("Phone Numer: ${phoneController.text}");
+
+                    verifyPhoneNumber(phoneController.text);
+                    print('LOGIN SUCCESS');
+                  },
+                  color: Colors.amber,
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ],
             ),
           ),
@@ -134,5 +173,30 @@ class _LoginScreenState extends State<LoginScreen> {
       }
       return const Center(child: Text("Error"));
     });
+  }
+
+  Future<void> verifyPhoneNumber(String phoneNumber) async {
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        // Auto-retrieve verification code
+        await _auth.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        // Verification failed
+      },
+      codeSent: (String verificationId, int? resendToken) async {
+        // Save the verification ID for future use
+        String smsCode = 'xxxxxx'; // Code input by the user
+        PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: verificationId,
+          smsCode: smsCode,
+        );
+        // Sign the user in with the credential
+        await _auth.signInWithCredential(credential);
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+      timeout: const Duration(seconds: 60),
+    );
   }
 }

@@ -54,6 +54,24 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     print("BUILD");
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    print("Screen Widdth: $screenWidth");
+    print("Screen Height: $screenHeight");
+    bool isDesktop = false;
+
+    if (screenWidth < 480) {
+      print("Mobile");
+    } else if (screenWidth < 760) {
+      print("Tablet");
+    } else {
+      isDesktop = true;
+      print("Desktop");
+    }
+
+    // if (isDesktop == true) {
+    //   return Text('Hello');
+    // }
     return Scaffold(
       drawer: const NavDrawer(),
       appBar: AppBar(
@@ -103,15 +121,17 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             const SizedBox(
               height: 20,
             ),
-            MaterialButton(
-              color: Colors.blueAccent,
-              onPressed: () {
-                setState() {
-                  print("SETTINGS");
-                }
-              },
-              child: const Text("Button"),
-            ),
+            isDesktop == false
+                ? MaterialButton(
+                    color: Colors.blueAccent,
+                    onPressed: () {
+                      setState() {
+                        print("SETTINGS");
+                      }
+                    },
+                    child: const Text("Button"),
+                  )
+                : Text('Hi I am Desktop'),
             ListView.separated(
                 physics: const AlwaysScrollableScrollPhysics(),
                 shrinkWrap: true,

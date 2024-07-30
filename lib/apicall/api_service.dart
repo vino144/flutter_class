@@ -6,7 +6,10 @@ class ApiService {
   Future<List<UserModel>?> getUsers() async {
     try {
       var url = Uri.parse(ApiConstants.baseUrl + ApiConstants.usersEndpoint);
+      print("SUCCESs 1");
       var response = await http.get(url);
+      print("SUCCESs 2");
+
       if (response.statusCode == 200) {
         List<UserModel> _model = userModelFromJson(response.body);
         return _model;
