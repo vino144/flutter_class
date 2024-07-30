@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:first_project/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class NavDrawer extends StatelessWidget {
   const NavDrawer({super.key});
@@ -66,7 +68,9 @@ class NavDrawer extends StatelessWidget {
     );
     Widget continueButton = TextButton(
       child: const Text("Ok"),
-      onPressed: () {
+      onPressed: () async {
+        await GoogleSignIn().signOut();
+        FirebaseAuth.instance.signOut();
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => const LoginScreen()));
       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class PhoneAuthScreen extends StatefulWidget {
   const PhoneAuthScreen({super.key});
@@ -40,10 +41,44 @@ class PhoneAuthScreenState extends State<PhoneAuthScreen> {
               onPressed: _signInWithPhoneNumber,
               child: const Text('Sign In'),
             ),
+            ElevatedButton(
+              onPressed: () {
+                signInWithGoogle(context);
+              },
+              child: const Text('Google Sign In'),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> signInWithGoogle(BuildContext context) async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    var userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    // Once signed in, return the UserCredential
+
+    print("USERNAME: ${userCredential.user!.displayName}");
+
+    if (userCredential.user != null) {
+      print("USER IS NOT NULL");
+      Navigator.pushReplacementNamed(context, '/home');
+    }
+
+    //return userCredential;
   }
 
   void _verifyPhoneNumber() async {
