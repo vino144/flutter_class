@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:first_project/screens/feedback_screen.dart';
 import 'package:first_project/screens/login_screen.dart';
 import 'package:first_project/screens/myhomescreen.dart';
@@ -13,9 +14,8 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // Initialize Firebase SDK
-  await Firebase.initializeApp(
-      //options: DefaultFirebaseOptions.currentPlatform,
-      );
+  await Firebase.initializeApp();
+  //FirebaseCrashlytics.instance.crash();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   initServiceLocator();
   runApp(const MyApp());
