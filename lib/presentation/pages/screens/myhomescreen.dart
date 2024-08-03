@@ -1,6 +1,6 @@
-import 'package:first_project/apicall/api_service.dart';
-import 'package:first_project/model/user_model.dart';
-import 'package:first_project/nav_drawer.dart';
+import 'package:first_project/core/apicall/api_service.dart';
+import 'package:first_project/data/model/user_model.dart';
+import 'package:first_project/presentation/widgets/nav_drawer.dart';
 import 'package:flutter/material.dart';
 
 class MyHomeScreen extends StatefulWidget {

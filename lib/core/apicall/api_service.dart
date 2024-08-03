@@ -1,5 +1,5 @@
-import 'package:first_project/apicall/api_constants.dart';
-import 'package:first_project/model/user_model.dart';
+import 'package:first_project/core/apicall/api_constants.dart';
+import 'package:first_project/data/model/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {

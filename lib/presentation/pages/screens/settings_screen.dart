@@ -1,4 +1,4 @@
-import 'package:first_project/nav_drawer.dart';
+import 'package:first_project/presentation/widgets/nav_drawer.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {

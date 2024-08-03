@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:first_project/screens/bloc/login_bloc.dart';
-import 'package:first_project/screens/myhomescreen.dart';
+import 'package:first_project/presentation/bloc/login_bloc/login_bloc.dart';
+import 'package:first_project/presentation/pages/screens/myhomescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

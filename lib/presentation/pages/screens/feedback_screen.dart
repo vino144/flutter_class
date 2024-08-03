@@ -1,5 +1,5 @@
-import 'package:first_project/nav_drawer.dart';
-import 'package:first_project/widgets/grid_view_widget.dart';
+import 'package:first_project/presentation/widgets/nav_drawer.dart';
+import 'package:first_project/presentation/widgets/grid_view_widget.dart';
 import 'package:flutter/material.dart';
 
 class FeedbackScreen extends StatelessWidget {

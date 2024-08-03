@@ -1,5 +1,5 @@
-import 'package:first_project/model/namemodel.dart';
-import 'package:first_project/widgets/grid_view_item_widget.dart';
+import 'package:first_project/data/model/namemodel.dart';
+import 'package:first_project/presentation/widgets/grid_view_item_widget.dart';
 import 'package:flutter/material.dart';
 
 class GridViewWidget extends StatelessWidget {
