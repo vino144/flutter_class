@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
     print('CHECK 2');
     FlutterNativeSplash.remove();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushReplacementNamed(context, '/phone-login');
+      Navigator.pushReplacementNamed(context, '/login');
     });
   }
 }

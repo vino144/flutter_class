@@ -5,6 +5,7 @@ import 'package:first_project/presentation/pages/screens/login_screen.dart';
 import 'package:first_project/presentation/pages/screens/myhomescreen.dart';
 import 'package:first_project/presentation/pages/screens/phone_login.dart';
 import 'package:first_project/presentation/pages/screens/profile_screen.dart';
+import 'package:first_project/presentation/pages/screens/register_screen.dart';
 import 'package:first_project/presentation/pages/screens/settings_screen.dart';
 import 'package:first_project/presentation/pages/screens/splash_screen.dart';
 import 'package:first_project/core/utils/service_locator.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/phone-login': (context) => const PhoneAuthScreen(),
         '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
         '/home': (context) => const MyHomeScreen(
               userName: '',
             ),

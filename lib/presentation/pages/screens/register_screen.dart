@@ -1,18 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:first_project/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:first_project/presentation/pages/screens/myhomescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController userNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -25,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       create: (context) => LoginBloc(),
       child: Scaffold(
           appBar: AppBar(
-            title: const Text('Login Screen'),
+            title: const Text('Register Screen'),
             automaticallyImplyLeading: false,
           ),
           body: loginView(context)),
@@ -68,6 +70,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 15,
                 ),
                 TextField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      hintText: 'Enter your email',
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.greenAccent, width: 2.0),
+                      ),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue, width: 2.0),
+                      ),
+                      errorText: _validate ? "Value Can't Be Empty" : null,
+                    )),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextField(
                   controller: passwordController,
                   decoration: InputDecoration(
                     labelText: "Password",
@@ -88,105 +107,50 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 MaterialButton(
                   onPressed: () async {
-                    print("Username: ${userNameController.text}");
-                    print("Password: ${passwordController.text}");
+                    try {
+                      // Create user with Firebase Auth
+                      UserCredential userCredential = await FirebaseAuth
+                          .instance
+                          .createUserWithEmailAndPassword(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
 
-                    // try {
-                    //   UserCredential userCredential = await FirebaseAuth
-                    //       .instance
-                    //       .signInWithEmailAndPassword(
-                    //     email: userNameController.text,
-                    //     password: passwordController.text,
-                    //   );
-                    //   ScaffoldMessenger.of(context).showSnackBar(
-                    //       SnackBar(content: Text('Login successful')));
-                    // } catch (e) {
-                    //   ScaffoldMessenger.of(context).showSnackBar(
-                    //       SnackBar(content: Text('Login failed: $e')));
-                    // }
-                    BlocProvider.of<LoginBloc>(context).add(LoginPressed(
-                        userNameController.text, passwordController.text));
+                      // Save additional user info in Firestore
+                      await FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(userCredential.user!.uid)
+                          .set({
+                        'username': userNameController.text,
+                        'email': emailController.text,
+                        'password': passwordController.text
+                      });
+                      Navigator.pushReplacementNamed(context, '/login');
 
-                    print('LOGIN SUCCESS');
-
-                    // if (userNameController.text.isNotEmpty) {
-                    //   if (passwordController.text.isNotEmpty) {
-                    //     if (userNameController.text == "vinoth" &&
-                    //         passwordController.text == "123456") {
-                    //       setState(() {
-                    //         _validate = false;
-                    //       });
-                    //       print("Welcome Vinoth");
-                    //       //Navigator.of(context).pushReplacementNamed('/home');
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) => MyHomeScreen(
-                    //                   userName: userNameController.text,
-                    //                 )),
-                    //       );
-                    //     }
-                    //   } else {
-                    //     print("Invalid Credentials");
-                    //     setState(() {
-                    //       _validate = true;
-                    //     });
-                    //   }
-                    // } else {
-                    //   print("Invalid Credentials");
-                    //   setState(() {
-                    //     _validate = true;
-                    //   });
-                    // }
+                      // Navigate to home or display success message
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Registration successful')));
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Registration failed: $e')));
+                    }
                   },
                   color: Colors.amber,
                   child: const Text(
-                    "Login",
+                    "Register",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                TextField(
-                  controller: phoneController,
-                  decoration: InputDecoration(
-                    labelText: "Phone Number",
-                    hintText: "Enter your Phone Number",
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.greenAccent, width: 2.0),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                    ),
-                    errorText: _validate ? "Value Can't Be Empty" : null,
-                  ),
-                  obscureText: false,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
                 MaterialButton(
                   onPressed: () {
-                    print("Phone Numer: ${phoneController.text}");
-
-                    verifyPhoneNumber(phoneController.text);
-                    print('LOGIN SUCCESS');
+                    Navigator.pushReplacementNamed(context, '/login');
                   },
                   color: Colors.amber,
                   child: const Text(
-                    "Login",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                MaterialButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/register');
-                  },
-                  color: Colors.amber,
-                  child: const Text(
-                    "New User Register Here",
+                    "Login here",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
